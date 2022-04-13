@@ -1,5 +1,7 @@
+// Initiator
+
 const localConnection = new RTCPeerConnection()
-const dataConnection = localConnection.createDataChannel()
+const dataConnection = localConnection.createDataChannel('channel')
 
 dataConnection.onmessage = msg => {
   console.log(`Msg from connection1: ${msg.data}`)
