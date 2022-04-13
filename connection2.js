@@ -17,3 +17,10 @@ remoteConnection.ondatachannel = chnl => {
     console.log('Connection opened')
   }
 }
+
+remoteConnection.setRemoteDescription(offer).then(_ => console.log('Offer sent!'))
+
+remoteConnection.createAnswer().then(_ => remoteConnection.setLocalDescription(_)).then(_ => console.log('Answer created!'))
+
+
+// getting answer from receiver
