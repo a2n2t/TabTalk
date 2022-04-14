@@ -1,7 +1,27 @@
 // Initiator
 
+/*
+//template for specifying a STUN server
+const iceConfiguration = { }
+iceConfiguration.iceServers = [];
+//turn server
+iceConfiguration.iceServers.push({
+               urls: 'turn:my-turn-server.mycompany.com:19403',
+               username: 'optional-username',
+               credentials: 'auth-token'
+           })
+//stun  server
+iceConfiguration.iceServers.push({
+               urls: 'stun:stun1.l.google.com:19302'
+           })
+const localConnection = new RTCPeerConnection(iceConfiguration)
+*/
+
+const iceConfiguration = { }
+iceConfiguration.iceServers = [{urls: 'stun:stun1.l.google.com:19302'}];
+
 // step 1
-const localConnection = new RTCPeerConnection()
+const localConnection = new RTCPeerConnection(iceConfiguration)
 const dataConnection = localConnection.createDataChannel('channel')
 
 dataConnection.onmessage = msg => {
