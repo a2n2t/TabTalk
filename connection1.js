@@ -24,19 +24,22 @@ iceConfiguration.iceServers = [{urls: 'stun:stun1.l.google.com:19302'}];
 const localConnection = new RTCPeerConnection(iceConfiguration)
 const dataConnection = localConnection.createDataChannel('channel')
 
+// when receiving a message
 dataConnection.onmessage = msg => {
-  console.log(`Msg from connection1: ${msg.data}`)
+  console.log(`Msg: ${msg.data}`)
 }
 
-dataConnection.onopen = opnconnection => {
-  console.log(`Cnection opened: ${opnconnection}`)
+dataConnection.onopen = _ => {
+  console.log(`Connection opened`)
 }
 
+// reprinting ServiceDescriptionProtocol. Will be called multiple times until done with ICE candidate
 localConnection.onicecandidate = event => {
   // push candidate objects to DB and try from 1st
   console.log(`New ICE candidate! Reprinting SDP. ${JSON.stringify(localConnection.localDescription)}`)
 }
 
+// setting offer (SDP) as local session description
 localConnection.createOffer().then(offer => localConnection.setLocalDescription(offer))
 .then(_ => console.log('set succesfully'))
 
