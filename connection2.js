@@ -11,7 +11,9 @@ remoteConnection.onicecandidate = event => {
 }
 
 remoteConnection.ondatachannel = chnl => {
+  // saving datachannel connection
   remoteConnection.dataChannel = chnl.channel
+
   remoteConnection.dataChannel.onmessage = msg => {
     console.log('New message from client 1 ' + msg.data)
   }
@@ -22,7 +24,7 @@ remoteConnection.ondatachannel = chnl => {
 
 remoteConnection.setRemoteDescription(offer).then(_ => console.log('Offer sent!'))
 
-remoteConnection.createAnswer().then(_ => remoteConnection.setLocalDescription(_)).then(_ => console.log('Answer created!'))
+remoteConnection.createAnswer().then(answer => remoteConnection.setLocalDescription(answer)).then(_ => console.log('Answer created!'))
 
 
 // step 4
